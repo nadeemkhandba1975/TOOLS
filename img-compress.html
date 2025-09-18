@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Upload and manage your marketing images with our powerful platform. Optimize your visual content for better marketing performance.">
+    <meta name="keywords" content="marketing images, image upload, visual content, digital marketing, image management">
+    <title>MarketingImageHub - Upload & Manage Your Marketing Images</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .logo i {
+            color: #ffbe0b;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee" opacity="0.1"/><path d="M0 0L100 100" stroke="%234361ee" stroke-width="2" opacity="0.2"/></svg>');
+            background-size: cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .upload-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .ad-section {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: var(--light);
+        }
+
+        .upload-area:hover {
+            background: #f0f4ff;
+            border-color: var(--secondary);
+        }
+
+        .upload-area i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .upload-area h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .upload-area p {
+            color: var(--gray);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* Upload Form */
+        .upload-form {
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 50px 0;
+            background: var(--light);
+        }
+
+        .gallery-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-img {
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        .gallery-info {
+            padding: 20px;
+        }
+
+        .gallery-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .gallery-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .gallery-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--light);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-unit p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .ad-placeholder {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #f0f4ff, #e6eeff);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .ad-section {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .ad-unit {
+                flex: 1;
+                min-width: 250px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 50px 0;
+            }
+            
+            .upload-section, .ad-section {
+                padding: 20px;
+            }
+            
+            .upload-area {
+                padding: 30px 15px;
+            }
+            
+            .upload-area i {
+                font-size: 2.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-images"></i>
+                    <span>MarketingImageHub</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Upload</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Upload & Manage Your Marketing Images</h1>
+            <p>Powerful platform to upload, organize, and optimize your marketing visuals for better campaign performance.</p>
+            <a href="#upload" class="cta-button">Start Uploading Now</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section" id="upload">
+                <h2 class="section-title">Upload Marketing Images</h2>
+                
+                <div class="upload-area" id="drop-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drag & Drop Your Images Here</h3>
+                    <p>or click to browse files (JPG, PNG, WebP supported)</p>
+                    <input type="file" id="file-input" accept="image/*" multiple>
+                </div>
+
+                <div class="upload-form">
+                    <div class="form-group">
+                        <label for="image-title">Image Title</label>
+                        <input type="text" id="image-title" placeholder="Enter a descriptive title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image-description">Description</label>
+                        <textarea id="image-description" placeholder="Describe the image and its marketing purpose"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image-category">Category</label>
+                        <select id="image-category">
+                            <option value="">Select a category</option>
+                            <option value="social-media">Social Media</option>
+                            <option value="banner-ads">Banner Ads</option>
+                            <option value="email-marketing">Email Marketing</option>
+                            <option value="print">Print Materials</option>
+                            <option value="product">Product Images</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image-tags">Tags (comma separated)</label>
+                        <input type="text" id="image-tags" placeholder="e.g., summer, sale, promotion">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Upload Images</button>
+                </div>
+            </section>
+
+            <!-- Ad Section -->
+            <section class="ad-section">
+                <h2 class="section-title">Advertisement</h2>
+                
+                <div class="ad-unit">
+                    <p>Advertisement Space</p>
+                    <div class="ad-placeholder">
+                        AdSense Ad Unit
+                    </div>
+                    <div class="ad-label">Google AdSense</div>
+                </div>
+                
+                <div class="ad-unit">
+                    <p>Advertisement Space</p>
+                    <div class="ad-placeholder">
+                        AdSense Ad Unit
+                    </div>
+                    <div class="ad-label">Google AdSense</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Marketing Image Gallery</h2>
+            
+            <div class="gallery-filters">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Social Media</button>
+                <button class="filter-btn">Banner Ads</button>
+                <button class="filter-btn">Email</button>
+                <button class="filter-btn">Print</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Summer Sale Banner</h3>
+                        <p>Promotional banner for summer sales campaign</p>
+                        <div class="gallery-tags">
+                            <span class="tag">sale</span>
+                            <span class="tag">summer</span>
+                            <span class="tag">banner</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Product Showcase</h3>
+                        <p>Highlighting our newest product features</p>
+                        <div class="gallery-tags">
+                            <span class="tag">product</span>
+                            <span class="tag">feature</span>
+                            <span class="tag">new</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Social Media Post</h3>
+                        <p>Engaging visual for Instagram campaign</p>
+                        <div class="gallery-tags">
+                            <span class="tag">social</span>
+                            <span class="tag">instagram</span>
+                            <span class="tag">engagement</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Email Header</h3>
+                        <p>Branded header for newsletter emails</p>
+                        <div class="gallery-tags">
+                            <span class="tag">email</span>
+                            <span class="tag">newsletter</span>
+                            <span class="tag">branding</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MarketingImageHub</h3>
+                    <p>Powerful platform for managing your marketing visuals with ease.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Upload</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Marketing Tips</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR Compliance</a></li>
+                        <li><a href="#">Copyright Info</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 MarketingImageHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-input');
+            const dropArea = document.getElementById('drop-area');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Handle drag and drop
+            dropArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            dropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#3a0ca3';
+                this.style.backgroundColor = '#f0f4ff';
+            });
+            
+            dropArea.addEventListener('dragleave', function() {
+                this.style.borderColor = '#4361ee';
+                this.style.backgroundColor = '#f8f9fa';
+            });
+            
+            dropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#4361ee';
+                this.style.backgroundColor = '#f8f9fa';
+                
+                if (e.dataTransfer.files.length) {
+                    handleImageUpload(e.dataTransfer.files);
+                }
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length) {
+                    handleImageUpload(this.files);
+                }
+            });
+            
+            // Handle image upload
+            function handleImageUpload(files) {
+                // Check if files are images
+                for (let i = 0; i < files.length; i++) {
+                    if (!files[i].type.match('image.*')) {
+                        alert('Please select only image files.');
+                        return;
+                    }
+                }
+                
+                // In a real application, you would upload files to a server here
+                // For this demo, we'll just show a success message
+                alert(`Successfully selected ${files.length} image(s) for upload!`);
+                
+                // You would typically have code here to:
+                // 1. Show upload progress
+                // 2. Send files to server via AJAX
+                // 3. Update the gallery when complete
+            }
+            
+            // Gallery filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // In a real application, you would filter the gallery here
+                    // For this demo, we'll just log the filter
+                    console.log(`Filtering by: ${this.textContent}`);
+                });
+            });
+            
+            // Form submission
+            document.querySelector('.submit-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const title = document.getElementById('image-title').value;
+                const description = document.getElementById('image-description').value;
+                const category = document.getElementById('image-category').value;
+                const tags = document.getElementById('image-tags').value;
+                
+                // Basic validation
+                if (!title || !category) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                // In a real application, you would send this data to a server
+                // along with the uploaded images
+                
+                // Show success message
+                alert('Images uploaded successfully!');
+                
+                // Reset form
+                document.getElementById('image-title').value = '';
+                document.getElementById('image-description').value = '';
+                document.getElementById('image-category').value = '';
+                document.getElementById('image-tags').value = '';
+                fileInput.value = '';
+            });
+        });
+    </script>
+</body>
+</html>
